@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ==================== MAIN DIMENSIONS (from drawings) ==================== -->
+  <!-- All values in meters -->
+
+  <!-- Overall length (side view): 1289 mm -->
+  <xacro:property name="overall_length" value="1.289"/>
+
+  <!-- Wheelbase (side view): 889 mm -->
+  <xacro:property name="wheelbase" value="0.889"/>
+
+  <!-- Track width (front view): 1000 mm (assumed wheel center-to-center) -->
+  <xacro:property name="track_width" value="1.000"/>
+
+  <!-- Wheel diameter: Ø400 mm -->
+  <xacro:property name="wheel_diameter" value="0.400"/>
+  <xacro:property name="wheel_radius" value="${wheel_diameter/2}"/>
+
+  <!-- Wheel width (not explicitly on sheet; tweak if needed) -->
+  <xacro:property name="wheel_width" value="0.120"/>
+
+  <!-- Platform/deck size (top view shows ~1014 x 730 mm) -->
+  <xacro:property name="deck_length" value="1.014"/>
+  <xacro:property name="deck_width"  value="0.730"/>
+  <xacro:property name="deck_thickness" value="0.040"/>
+
+  <!-- Heights (from side view): -->
+  <!-- deck top height ≈ 582 mm (interpreted) -->
+  <xacro:property name="deck_top_z" value="0.582"/>
+
+  <!-- mast heights: 929 mm to camera block, 1341 mm overall (interpreted) -->
+  <xacro:property name="camera_block_z" value="0.929"/>
+  <xacro:property name="mast_top_z" value="1.341"/>
+
+  <!-- Frame clearance ~217 mm (interpreted) -->
+  <xacro:property name="frame_clearance" value="0.217"/>
+
+  <!-- Mast geometry -->
+  <xacro:property name="mast_radius" value="0.030"/>
+  <xacro:property name="mast_offset_x" value="${ wheelbase/2 - 0.05 }"/>  <!-- near front -->
+  <xacro:property name="mast_offset_y" value="0.0"/>
+
+  <!-- Camera block geometry -->
+  <xacro:property name="camera_block_size_x" value="0.12"/>
+  <xacro:property name="camera_block_size_y" value="0.08"/>
+  <xacro:property name="camera_block_size_z" value="0.06"/>
+
+  <!-- Antenna rod -->
+  <xacro:property name="antenna_radius" value="0.012"/>
+  <xacro:property name="antenna_height" value="${mast_top_z - camera_block_z}"/>
+
+  <!-- Masses (rough; tune later) -->
+  <xacro:property name="base_mass" value="45.0"/>
+  <xacro:property name="deck_mass" value="10.0"/>
+  <xacro:property name="mast_mass" value="3.0"/>
+  <xacro:property name="wheel_mass" value="3.0"/>
+
+</robot>

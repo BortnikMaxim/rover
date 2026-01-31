@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot name="delivery_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find delivery_robot_sim)/config/params.xacro"/>
+  <xacro:include filename="$(find delivery_robot_sim)/urdf/plugins.xacro"/>
+
+  <!-- ==================== Materials ==================== -->
+  <material name="mat_green"><color rgba="0.16 0.23 0.16 1.0"/></material>
+  <material name="mat_dark"><color rgba="0.10 0.10 0.10 1.0"/></material>
+  <material name="mat_black"><color rgba="0.02 0.02 0.02 1.0"/></material>
+  <material name="mat_metal"><color rgba="0.55 0.55 0.58 1.0"/></material>
+
+  <!-- ==================== base_link ==================== -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <mass value="${base_mass}"/>
+      <inertia ixx="3.0" ixy="0" ixz="0" iyy="6.0" iyz="0" izz="6.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== Frame beams (visual approximation) ==================== -->
+  <xacro:property name="rail_thick" value="0.05"/>
+  <xacro:property name="rail_z" value="${frame_clearance + 0.10}"/>
+
+  <xacro:macro name="fixed_box" params="name sx sy sz x y z rr rp ry mat">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${x} ${y} ${z}" rpy="${rr} ${rp} ${ry}"/>
+        <geometry><box size="${sx} ${sy} ${sz}"/></geometry>
+        <material name="${mat}"/>
+      </visual>
+      <collision>
+        <origin xyz="${x} ${y} ${z}" rpy="${rr} ${rp} ${ry}"/>
+        <geometry><box size="${sx} ${sy} ${sz}"/></geometry>
+      </collision>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Rails -->
+  <xacro:fixed_box name="rail_left"
+                   sx="${overall_length}" sy="${rail_thick}" sz="${rail_thick}"
+                   x="0" y="${deck_width/2 - rail_thick/2}" z="${rail_z}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <xacro:fixed_box name="rail_right"
+                   sx="${overall_length}" sy="${rail_thick}" sz="${rail_thick}"
+                   x="0" y="${-deck_width/2 + rail_thick/2}" z="${rail_z}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <!-- Cross beams -->
+  <xacro:fixed_box name="cross_front"
+                   sx="${rail_thick}" sy="${deck_width}" sz="${rail_thick}"
+                   x="${overall_length/2 - rail_thick/2}" y="0" z="${rail_z}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <xacro:fixed_box name="cross_rear"
+                   sx="${rail_thick}" sy="${deck_width}" sz="${rail_thick}"
+                   x="${-overall_length/2 + rail_thick/2}" y="0" z="${rail_z}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <xacro:fixed_box name="cross_mid"
+                   sx="${rail_thick}" sy="${deck_width*0.95}" sz="${rail_thick}"
+                   x="0" y="0" z="${rail_z}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <!-- Deck plate -->
+  <xacro:fixed_box name="deck_plate"
+                   sx="${deck_length}" sy="${deck_width}" sz="${deck_thickness}"
+                   x="0" y="0" z="${deck_top_z - deck_thickness/2}"
+                   rr="0" rp="0" ry="0" mat="mat_green"/>
+
+  <!-- ==================== Mast + camera block + antenna ==================== -->
+  <link name="mast_link">
+    <visual>
+      <origin xyz="0 0 ${camera_block_z/2}" rpy="0 0 0"/>
+      <geometry><cylinder radius="${mast_radius}" length="${camera_block_z}"/></geometry>
+      <material name="mat_dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${camera_block_z/2}" rpy="0 0 0"/>
+      <geometry><cylinder radius="${mast_radius}" length="${camera_block_z}"/></geometry>
+    </collision>
+  </link>
+  <joint name="mast_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="mast_link"/>
+    <origin xyz="${mast_offset_x} ${mast_offset_y} ${deck_top_z}" rpy="0 0 0"/>
+  </joint><link name="camera_block_link">
+    <visual>
+      <origin xyz="0 0 ${camera_block_size_z/2}" rpy="0 0 0"/>
+      <geometry><box size="${camera_block_size_x} ${camera_block_size_y} ${camera_block_size_z}"/></geometry>
+      <material name="mat_metal"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${camera_block_size_z/2}" rpy="0 0 0"/>
+      <geometry><box size="${camera_block_size_x} ${camera_block_size_y} ${camera_block_size_z}"/></geometry>
+    </collision>
+  </link>
+  <joint name="camera_block_joint" type="fixed">
+    <parent link="mast_link"/>
+    <child link="camera_block_link"/>
+    <origin xyz="0 0 ${camera_block_z - 0.02}" rpy="0 0 0"/>
+  </joint>
+
+  <link name="antenna_link">
+    <visual>
+      <origin xyz="0 0 ${antenna_height/2}" rpy="0 0 0"/>
+      <geometry><cylinder radius="${antenna_radius}" length="${antenna_height}"/></geometry>
+      <material name="mat_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${antenna_height/2}" rpy="0 0 0"/>
+      <geometry><cylinder radius="${antenna_radius}" length="${antenna_height}"/></geometry>
+    </collision>
+  </link>
+  <joint name="antenna_joint" type="fixed">
+    <parent link="mast_link"/>
+    <child link="antenna_link"/>
+    <origin xyz="0 0 ${camera_block_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ==================== Wheels (tire + rim) ==================== -->
+  <xacro:macro name="wheel" params="name x y">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${wheel_mass}"/>
+        <inertia ixx="0.06" ixy="0" ixz="0" iyy="0.06" iyz="0" izz="0.06"/>
+      </inertial>
+
+      <!-- Tire -->
+      <visual name="tire">
+        <!-- IMPORTANT: rotate around X so cylinder axis becomes Y (wheel axle) -->
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+        <material name="mat_black"/>
+      </visual>
+
+      <!-- Rim -->
+      <visual name="rim">
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry><cylinder radius="${wheel_radius*0.65}" length="${wheel_width*1.02}"/></geometry>
+        <material name="mat_dark"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+      </collision>
+    </link>
+
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}"/>
+      <origin xyz="${x} ${y} ${wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+    <gazebo reference="${name}">
+      <mu1>1.6</mu1>
+      <mu2>1.6</mu2>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:wheel name="wheel_fl" x="${ wheelbase/2}"  y="${ track_width/2}"/>
+  <xacro:wheel name="wheel_fr" x="${ wheelbase/2}"  y="${-track_width/2}"/>
+  <xacro:wheel name="wheel_rl" x="${-wheelbase/2}" y="${ track_width/2}"/>
+  <xacro:wheel name="wheel_rr" x="${-wheelbase/2}" y="${-track_width/2}"/>
+
+  <!-- ==================== Downward camera (SINGLE, no duplicates) ==================== -->
+  <link name="line_cam_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.06 0.06 0.03"/></geometry>
+      <material name="mat_metal"/>
+    </visual>
+  </link>
+
+  <joint name="line_cam_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="line_cam_link"/>
+    <!-- forward and low -->
+    <origin xyz="0.35 0 ${wheel_radius + 0.08}" rpy="0 0 0"/>
+  </joint><gazebo reference="line_cam_link">
+    <sensor name="line_camera" type="camera">
+      <!-- look straight down -->
+      <pose>0 0 0 -1.5708 0 0</pose>
+      <camera>
+        <horizontal_fov>1.2</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.01</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+      <always_on>true</always_on>
+      <update_rate>20</update_rate>
+      <visualize>true</visualize>
+      <!-- Gazebo Transport topic (no leading slash) -->
+      <topic>line_camera</topic>
+    </sensor>
+  </gazebo>
+
+</robot>

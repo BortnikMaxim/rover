@@ -1,0 +1,247 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <model name="delivery_robot">
+    <pose>0 0 0 0 0 0</pose>
+
+    <!-- Base (keep it above ground, do not collide with wheels) -->
+    <link name="base_link">
+      <pose>0 0 0.25 0 0 0</pose>
+
+      <inertial>
+        <mass>45.0</mass>
+        <inertia>
+          <ixx>3.0</ixx><iyy>6.0</iyy><izz>6.0</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <!-- Collision smaller and higher so it doesn't intersect wheels -->
+      <collision name="base_col">
+        <pose>0 0 0.00 0 0 0</pose>
+        <geometry>
+          <box><size>1.10 0.65 0.20</size></box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <visual name="base_vis">
+        <pose>0 0 0.00 0 0 0</pose>
+        <geometry>
+          <box><size>1.289 0.730 0.25</size></box>
+        </geometry>
+        <material>
+          <diffuse>0.16 0.23 0.16 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <!-- Wheel params -->
+    <!-- wheelbase 0.889 => +/-0.4445 ; track 1.0 => +/-0.5 ; radius 0.20 -->
+    <!-- IMPORTANT: cylinder axis is Z, so rotate wheel link by (0 1.5708 0) to make axis along Y -->
+    <!-- We also add friction to wheel collision -->
+    <link name="wheel_fl">
+      <pose>0.4445 0.5 0.20 1.5708 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.06</ixx><iyy>0.06</iyy><izz>0.06</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="col">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <material><diffuse>0.02 0.02 0.02 1</diffuse></material>
+      </visual>
+    </link>
+
+    <link name="wheel_fr">
+      <pose>0.4445 -0.5 0.20 1.570 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.06</ixx><iyy>0.06</iyy><izz>0.06</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="col">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <material><diffuse>0.02 0.02 0.02 1</diffuse></material>
+      </visual>
+    </link><link name="wheel_rl">
+      <pose>-0.4445 0.5 0.20 1.5708 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.06</ixx><iyy>0.06</iyy><izz>0.06</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="col">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <material><diffuse>0.02 0.02 0.02 1</diffuse></material>
+      </visual>
+    </link>
+
+    <link name="wheel_rr">
+      <pose>-0.4445 -0.5 0.20 1.5708 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.06</ixx><iyy>0.06</iyy><izz>0.06</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="col">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><cylinder><radius>0.20</radius><length>0.12</length></cylinder></geometry>
+        <material><diffuse>0.02 0.02 0.02 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- Wheel joints: axis is Y (because wheel links are rotated with pose 0 1.5708 0) -->
+    <joint name="wheel_fl_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_fl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+        <dynamics><damping>0.2</damping><friction>0.0</friction></dynamics>
+      </axis>
+    </joint>
+
+    <joint name="wheel_fr_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_fr</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+        <dynamics><damping>0.2</damping><friction>0.0</friction></dynamics>
+      </axis>
+    </joint>
+
+    <joint name="wheel_rl_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_rl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+        <dynamics><damping>0.2</damping><friction>0.0</friction></dynamics>
+      </axis>
+    </joint>
+
+    <joint name="wheel_rr_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_rr</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+        <dynamics><damping>0.2</damping><friction>0.0</friction></dynamics>
+      </axis>
+    </joint>
+
+    <!-- Downward camera -->
+    <link name="line_cam_link">
+      <pose>0.35 0 0.28 0 0 0</pose>
+      <sensor name="line_camera" type="camera">
+        <pose>0 0 0 -1.5708 0 0</pose>
+        <camera>
+          <horizontal_fov>1.2</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip><near>0.01</near><far>10.0</far></clip>
+        </camera>
+        <always_on>true</always_on>
+        <update_rate>20</update_rate>
+        <visualize>true</visualize>
+        <topic>line_camera</topic>
+      </sensor>
+    </link>
+
+    <joint name="line_cam_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>line_cam_link</child>
+    </joint>
+
+    <!-- Systems -->
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors"/><plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>wheel_fl_joint</left_joint>
+      <left_joint>wheel_rl_joint</left_joint>
+      <right_joint>wheel_fr_joint</right_joint>
+      <right_joint>wheel_rr_joint</right_joint>
+
+      <wheel_separation>1.0</wheel_separation>
+      <wheel_radius>0.20</wheel_radius>
+
+      <topic>/cmd_vel</topic>
+      <odom_topic>/odom</odom_topic>
+      <tf_topic>/tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+    </plugin>
+
+  </model>
+</sdf>
