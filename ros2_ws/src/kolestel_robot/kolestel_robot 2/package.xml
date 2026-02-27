@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>kolestel_robot</name>
+  <version>2.0.0</version>
+  <description>
+    ROS 2 Jazzy simulation package for Kolestel 001 mobile robot.
+    Uses Gazebo Sim (Harmonic) with ros_gz integration.
+    Includes URDF model, launch files, and configurations for simulation,
+    teleoperation, SLAM, and navigation.
+  </description>
+  <maintainer email="robot@kolestel.dev">Kolestel Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Core ROS 2 dependencies -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+
+  <!-- Robot description -->
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>joint_state_publisher_gui</depend>
+
+  <!-- Gazebo Sim (Harmonic) integration via ros_gz -->
+  <depend>ros_gz_sim</depend>
+  <depend>ros_gz_bridge</depend>
+  <depend>ros_gz_image</depend>
+
+  <!-- Teleoperation -->
+  <depend>teleop_twist_keyboard</depend>
+  <depend>teleop_twist_joy</depend>
+  <depend>joy_linux</depend>
+
+  <!-- Navigation -->
+  <depend>navigation2</depend>
+  <depend>nav2_bringup</depend>
+  <depend>slam_toolbox</depend>
+
+  <!-- Visualization -->
+  <depend>rviz2</depend>
+
+  <!-- Launch -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

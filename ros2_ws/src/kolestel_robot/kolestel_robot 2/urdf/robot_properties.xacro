@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ======================= -->
+  <!-- ROBOT PROPERTIES        -->
+  <!-- Based on technical drawings: Kolestel 001 -->
+  <!-- ======================= -->
+
+  <!-- Physical Constants -->
+  <xacro:property name="gravity" value="9.81"/>
+
+  <!-- ======================= -->
+  <!-- CHASSIS DIMENSIONS      -->
+  <!-- ======================= -->
+  
+  <!-- Main chassis (base_link) -->
+  <xacro:property name="chassis_length" value="1.024"/>      <!-- meters (from drawing: 1024mm) -->
+  <xacro:property name="chassis_width" value="1.000"/>       <!-- meters (from drawing: 1000mm) -->
+  <xacro:property name="chassis_height" value="0.150"/>      <!-- meters (estimated frame height) -->
+  <xacro:property name="chassis_mass" value="100.0"/>        <!-- kg (main frame mass) -->
+  
+  <!-- Ground clearance -->
+  <xacro:property name="ground_clearance" value="0.271"/>    <!-- meters (from drawing: 271mm) -->
+
+  <!-- ======================= -->
+  <!-- WHEEL DIMENSIONS        -->
+  <!-- ======================= -->
+  
+  <xacro:property name="wheel_radius" value="0.200"/>        <!-- meters (diameter 400mm / 2) -->
+  <xacro:property name="wheel_width" value="0.150"/>         <!-- meters (estimated tire width) -->
+  <xacro:property name="wheel_mass" value="7.5"/>            <!-- kg per wheel -->
+  
+  <!-- Wheel positions -->
+  <xacro:property name="wheelbase" value="0.889"/>           <!-- meters (from drawing: 889mm) -->
+  <xacro:property name="wheel_track" value="1.000"/>         <!-- meters (track width: 1000mm) -->
+
+  <!-- Aliases for compatibility with other xacro files -->
+  <!-- (Some files refer to track_width instead of wheel_track) -->
+  <xacro:property name="track_width" value="${wheel_track}"/>
+  
+  <!-- Wheel physics -->
+  <xacro:property name="wheel_friction_mu1" value="1.0"/>
+  <xacro:property name="wheel_friction_mu2" value="1.0"/>
+  <xacro:property name="wheel_kp" value="1000000.0"/>
+  <xacro:property name="wheel_kd" value="100.0"/>
+
+  <!-- ======================= -->
+  <!-- UPPER STRUCTURE         -->
+  <!-- ======================= -->
+  
+  <!-- Equipment platform -->
+  <xacro:property name="platform_length" value="0.800"/>
+  <xacro:property name="platform_width" value="0.600"/>
+  <xacro:property name="platform_height" value="0.050"/>
+  <xacro:property name="platform_mass" value="15.0"/>
+  <xacro:property name="platform_z_offset" value="0.200"/>   <!-- height above chassis -->
+
+  <!-- Mast (antenna pole) -->
+  <xacro:property name="mast_radius" value="0.025"/>
+  <xacro:property name="mast_height" value="0.600"/>         <!-- from drawing: total height 1342mm -->
+  <xacro:property name="mast_mass" value="3.0"/>
+
+  <!-- Alias used by robot_gz.urdf.xacro -->
+  <xacro:property name="antenna_height" value="${mast_height}"/>
+
+  <!-- ======================= -->
+  <!-- SENSOR DIMENSIONS       -->
+  <!-- ======================= -->
+  
+  <!-- Lidar -->
+  <xacro:property name="lidar_radius" value="0.050"/>
+  <xacro:property name="lidar_height" value="0.070"/>
+  <xacro:property name="lidar_mass" value="0.830"/>          <!-- typical 2D lidar mass -->
+  <xacro:property name="lidar_x_offset" value="0.0"/>
+  <xacro:property name="lidar_z_offset" value="0.300"/>      <!-- above platform -->
+  
+  <!-- Cameras -->
+  <xacro:property name="camera_length" value="0.030"/>
+  <xacro:property name="camera_width" value="0.090"/>
+  <xacro:property name="camera_height" value="0.030"/>
+  <xacro:property name="camera_mass" value="0.200"/>
+  
+  <!-- IMU -->
+  <xacro:property name="imu_size" value="0.050"/>
+  <xacro:property name="imu_mass" value="0.100"/>
+
+  <!-- ======================= -->
+  <!-- BATTERY BOX             -->
+  <!-- ======================= -->
+  
+  <xacro:property name="battery_length" value="0.400"/>
+  <xacro:property name="battery_width" value="0.300"/>
+  <xacro:property name="battery_height" value="0.200"/>
+  <xacro:property name="battery_mass" value="25.0"/>         <!-- typical battery pack -->
+
+  <!-- ======================= -->
+  <!-- CONTROL PARAMETERS      -->
+  <!-- ======================= -->
+  
+  <!-- Skid-steer drive -->
+  <xacro:property name="max_wheel_torque" value="100.0"/>    <!-- Nm -->
+  <xacro:property name="max_wheel_acceleration" value="3.0"/> <!-- rad/s^2 -->
+  <xacro:property name="max_linear_velocity" value="2.0"/>   <!-- m/s -->
+  <xacro:property name="max_angular_velocity" value="1.5"/>  <!-- rad/s -->
+
+  <!-- ======================= -->
+  <!-- COLORS / MATERIALS      -->
+  <!-- ======================= -->
+  
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  
+  <material name="dark_gray">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  
+  <material name="light_gray">
+    <color rgba="0.7 0.7 0.7 1.0"/>
+  </material>
+  
+  <material name="white">
+    <color rgba="0.95 0.95 0.95 1.0"/>
+  </material>
+  
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  
+  <material name="yellow">
+    <color rgba="0.9 0.9 0.0 1.0"/>
+  </material>
+  
+  <material name="orange">
+    <color rgba="1.0 0.5 0.0 1.0"/>
+  </material>
+
+</robot>

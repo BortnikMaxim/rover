@@ -1,0 +1,20 @@
+{
+    "url": "https://cad.onshape.com/documents/2bf07c7e058e3ef5cea03ec4/w/65c9b63278420db8096af83f/e/5952985b7bd4e21970199eb4",
+    "output_directory": "../",
+    "robot_name": "kolestel_rover",
+    "output_format": "urdf",
+    "stl_format": "binary",
+    "simplify_meshes": false,
+    "use_fixed_links": false,
+    "no_dynamics": false,
+    "dynamics_override": {
+        "chassis": {
+            "mass": 25.0,
+            "com": [0, 0, 0.3]
+        },
+        "wheel_fl": {"mass": 2.5},
+        "wheel_fr": {"mass": 2.5},
+        "wheel_rl": {"mass": 2.5},
+        "wheel_rr": {"mass": 2.5}
+    }
+}
