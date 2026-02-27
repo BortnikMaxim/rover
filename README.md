@@ -1,5 +1,3 @@
-:::writing{variant=“standard” id=“73921”}
-
 🚀 ROS2 Rover Simulation
 
 Этот проект содержит симуляцию ровера в Gazebo на базе ROS2.
