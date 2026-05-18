@@ -4,8 +4,22 @@ project(kolestel_rover_description)
 find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY
-  urdf meshes worlds launch config
+  urdf
+  meshes
+  worlds
+  launch
+  config
+  maps
+  models
   DESTINATION share/${PROJECT_NAME}/
+)
+
+install(PROGRAMS
+  scripts/pointcloud_to_livox.py
+  scripts/odom_to_tf.py
+  scripts/warehouse_map_visualizer.py
+  scripts/generate_nav2_map.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()
