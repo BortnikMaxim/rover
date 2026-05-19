@@ -261,7 +261,7 @@ Full results, including the Mann–Whitney significance tests, are in
 │                                           └──────┬───────┘    │   YOLOE-11   │  │
 │                                                  │            └──────┬───────┘  │
 └──────────────────────────────────────────────────┼───────────────────┼──────────┘
-                                                   │ Ethernet cable    │ USB 2.0 cable
+                                                   │                   │ USB 2.0 cable
                                             ╔══════╧═════╗     ╔═══════╧═══════╗
                                             ║   Livox    ║     ║   DEXP USB    ║
                                             ║  Mid-360   ║     ║    camera     ║
