@@ -4,8 +4,6 @@
 > manufacturing logistics — 3D LiDAR + USB camera + Nav2 + YOLOv8,
 > all running on a single mini-PC with no Wi-Fi, no GPS, no cloud.
 
-![Kolestel rover on the test site](docs/hero.jpg)
-
 [![ROS 2 Jazzy](https://img.shields.io/badge/ROS%202-Jazzy-blue)](https://docs.ros.org/en/jazzy/)
 [![Ubuntu 24.04](https://img.shields.io/badge/Ubuntu-24.04-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
 [![Gazebo](https://img.shields.io/badge/Gazebo-Harmonic-orange)](https://gazebosim.org/)
@@ -263,44 +261,42 @@ Full results, including the Mann–Whitney significance tests, are in
 │                                           └──────┬───────┘    │   YOLOE-11   │  │
 │                                                  │            └──────┬───────┘  │
 └──────────────────────────────────────────────────┼───────────────────┼──────────┘
-                                                   │                   │
+                                                   │ Ethernet          │ USB 2.0
                                             ╔══════╧═════╗     ╔═══════╧═══════╗
                                             ║   Livox    ║     ║   DEXP USB    ║
                                             ║  Mid-360   ║     ║    camera     ║
                                             ║ (LiDAR+IMU)║     ║   (1080p)     ║
-                                            ╚════════════╝     ╚═══════════════╝
-                                                                       │
-                                                                 ┌─────┴─────┐
-                                                                 │  STM32    │
-                                                                 │  motor    │
-                                                                 │ firmware  │
-                                                                 └─────┬─────┘
-                                                                       │
-                                                                  ┌────┴────┐
-                                                                  │ 4×4 BLDC│
-                                                                  │ chassis │
-                                                                  └─────────┘
+                                            ╚══════╤═════╝     ╚═══════╤═══════╝
+                                              mounted on          mounted on
+                                                   │                   │
+                                                   │   ┌────────────┐  │
+                                                   └──►│ 4×4 wheeled├◄─┘
+                                                       │  chassis   │
+                                                       │ (BLDC × 4) │
+                                                       └─────▲──────┘
+                                                             │ PWM
+                                                       ┌─────┴─────┐
+                                                       │  STM32    │
+                                                       │  motor    │◄── UART ──┐
+                                                       │ firmware  │           │
+                                                       └───────────┘           │
+                                                                               │
+                                                                  (NucBox K10 ─┘)
 ```
-
----
-
-## Roadmap
-
-| Horizon | Items |
-| --- | --- |
-| **Months 1–3** | DWA local planner integration into the live Nav2 stack; pedestrian-aware Gazebo trials; physical commissioning at the target facility |
-| **Months 3–6** | LoRa radio link to lift the order channel out of the local Wi-Fi footprint; PWA graphical map-editor (kill the manual YAML edit) |
-| **Months 3–9** | Mechanical-engineering track: IP54 enclosure, heated optical cover for the Mid-360, sealed USB feed-through, sensor-mast stiffening |
-| **Months 6–12** | Native C++/Cython port of JPS and D* Lite (10–100× wall-clock); ArUco-based visual docking; multi-robot dispatch (Hungarian or auction) |
 
 ---
 
 ## Authors
 
-- **Georgii Berg** ([@GB911f](https://github.com/GB911f)) — system design,
-  navigation algorithms, benchmark harness, FastAPI back-end, thesis author.
 - **Maxim Bortnik** ([@BortnikMaxim](https://github.com/BortnikMaxim)) —
-  hardware platform, ROS 2 driver wiring, Gazebo world, field testing.
+  hardware platform integration (Mid-360, DEXP camera, NucBox K10, STM32),
+  ROS 2 workspace and Gazebo simulation environment, URDF and chassis CAD,
+  field deployment and bring-up tests.
+- **Georgii Berg** ([@GB911f](https://github.com/GB911f)) — navigation
+  algorithms (planner library, high-resolution benchmark harness, Mann–Whitney
+  significance tests), FastAPI back-end with the PWA operator console and
+  ROS 2 task / status bridge, thesis write-up and architectural research
+  (vSLAM survey, local-planner study, Stage 4 system design).
 
 **Thesis supervisor:** Senior Lecturer Kopylov I. S.,
 Department of Big Data and Information Retrieval, Faculty of Computer
