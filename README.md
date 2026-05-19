@@ -1,96 +1,54 @@
-🚀 ROS2 Rover Simulation
+# ROS2 Rover Simulation
 
-Этот проект содержит симуляцию ровера в Gazebo на базе ROS2.
+Симуляция колёсного ровера в Gazebo на базе ROS2 Jazzy.
 
-⸻
+## Требования
 
-📦 Требования
+- ROS2 Jazzy
+- Gazebo
+- colcon
+- teleop_twist_keyboard
 
-Перед запуском убедитесь, что установлены:
-	•	ROS2 Jazzy
-	•	Gazebo
-	•	colcon
-	•	teleop_twist_keyboard
+## Сборка
 
-⸻
-
-🛠 Сборка проекта
-
+```bash
 cd ~/ros2_ws
 colcon build --packages-select kolestel_rover_description
+```
 
-Что делает эта команда
-	•	переходит в рабочее пространство ROS2 (ros2_ws)
-	•	собирает пакет kolestel_rover_description
-	•	создаёт папки build, install, log
+## Подключение окружения после сборки
 
-⸻
-
-🔧 Подключение окружения после сборки
-
+```bash
 source install/setup.bash
+```
 
-Что это делает
-	•	подключает собранные пакеты
-	•	позволяет ROS2 видеть launch-файлы и ноды
+## Подключение системного окружения ROS2
 
-⸻
+```bash
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+```
 
-▶️ Запуск симуляции Gazebo
+После каждого перезапуска терминала нужно выполнять эти команды заново.
 
+## Запуск симуляции
+
+```bash
 ros2 launch kolestel_rover_description gazebo.launch.py
+```
 
-Что происходит
-	•	запускается Gazebo
-	•	загружается модель ровера
-	•	стартует симуляция
+## Управление с клавиатуры
 
-⸻
+Установка пакета:
 
-🌍 Подключение системного окружения ROS2
-
-source /opt/ros/jazzy/setup.bash
-
-Зачем это нужно
-	•	подключает глобальную установку ROS2 Jazzy
-	•	делает доступными стандартные пакеты ROS2
-
-⸻
-
-🔁 Подключение workspace
-
-source ~/ros2_ws/install/setup.bash
-
-Что делает
-	•	добавляет локальные пакеты workspace в окружение
-	•	необходимо перед запуском нод
-
-⸻
-
-🎮 Установка управления с клавиатуры
-
+```bash
 sudo apt install ros-jazzy-teleop-twist-keyboard -y
+```
 
-Что делает
-	•	устанавливает пакет управления роботом с клавиатуры
+Запуск:
 
-⸻
-
-🕹 Управление ровером
-
+```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
 
-Что происходит
-	•	запускается управление с клавиатуры
-	•	публикуются команды движения (cmd_vel)
-
-⸻
-
-📌 Если после перезапуска терминала ничего не работает
-
-Выполните снова:
-
-source /opt/ros/jazzy/setup.bash
-source ~/ros2_ws/install/setup.bash
-
-:::
+Команды движения публикуются в топик `/cmd_vel`.
