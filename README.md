@@ -286,30 +286,8 @@ Full results, including the Mann–Whitney significance tests, are in
 
 ---
 
-## Authors
-
-- **Maxim Bortnik** ([@BortnikMaxim](https://github.com/BortnikMaxim)) —
-  hardware platform integration (Mid-360, DEXP camera, NucBox K10, STM32),
-  ROS 2 workspace and Gazebo simulation environment, URDF and chassis CAD,
-  field deployment and bring-up tests.
-- **Georgii Berg** ([@GB911f](https://github.com/GB911f)) — navigation
-  algorithms (planner library, high-resolution benchmark harness, Mann–Whitney
-  significance tests), FastAPI back-end with the PWA operator console and
-  ROS 2 task / status bridge, thesis write-up and architectural research
-  (vSLAM survey, local-planner study, Stage 4 system design).
-
-**Thesis supervisor:** Senior Lecturer Kopylov I. S.,
-Department of Big Data and Information Retrieval, Faculty of Computer
-Science, National Research University Higher School of Economics (HSE).
-
----
-
 ## License
 
 Released for academic and research use. Contact the authors for commercial
 licensing terms.
 
----
-
-<sub>Built for the autonomous-navigation track of a bachelor's thesis on
-mobile robotics at HSE Faculty of Computer Science.</sub>
