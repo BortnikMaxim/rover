@@ -1,0 +1,158 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Global Costmap1
+        - /Local Costmap1
+        - /Path1
+        - /Visited1
+      Splitter Ratio: 0.5
+    Tree Height: 600
+  - Class: rviz_common/Views
+    Name: Views
+
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Reference Frame: map
+      Color: 100; 100; 100
+      Cell Size: 1
+      Plane Cell Count: 60
+      Enabled: true
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Show Names: true
+      Marker Scale: 0.8
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+      Visual Enabled: true
+      Collision Enabled: false
+    - Class: rviz_default_plugins/Map
+      Name: Static Map
+      Topic:
+        Value: /map
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: false
+      Color Scheme: map
+      Alpha: 0.6
+      Draw Behind: true
+    - Class: rviz_default_plugins/Map
+      Name: Global Costmap
+      Topic:
+        Value: /global_costmap
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: true
+      Color Scheme: costmap
+      Alpha: 0.6
+      Draw Behind: true
+    - Class: rviz_default_plugins/Map
+      Name: Local Costmap
+      Topic:
+        Value: /local_costmap
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: true
+      Color Scheme: costmap
+      Alpha: 0.9
+      Draw Behind: false
+    - Class: rviz_default_plugins/Path
+      Name: Path
+      Topic:
+        Value: /grid_planner/path
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: true
+      Color: 0; 220; 0
+      Line Width: 0.10
+      Line Style: Lines
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.05
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Visited
+      Topic:
+        Value: /grid_planner/visited
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: true
+      Style: Boxes
+      Size (m): 0.05
+      Color Transformer: FlatColor
+      Color: 30; 144; 255
+      Decay Time: 0
+      Alpha: 0.5
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Lidar
+      Topic:
+        Value: /lidar_map
+        Depth: 1
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+      Enabled: true
+      Style: Points
+      Size (Pixels): 2
+      Color Transformer: FlatColor
+      Color: 255; 200; 50
+      Decay Time: 0
+    - Class: rviz_default_plugins/Image
+      Name: YOLOv8
+      Topic:
+        Value: /yolo/debug_image
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+      Enabled: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Value: /goal_pose
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+      Target Frame: base_footprint
+      Distance: 20
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Pitch: 1.3
+      Yaw: 1.5708
+      Near Clip Distance: 0.01
+
+Window Geometry:
+  Height: 900
+  Width: 1600
